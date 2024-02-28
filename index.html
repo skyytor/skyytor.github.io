@@ -121,7 +121,10 @@
             }).then(response => response.json()) // 将response数据解析成json
                 .then(json => {
                     document.getElementById('answer').innerText = json.choices[0].message.content;
-                    document.getElementById('tokens').innerText = 'prompt_tokens:'+json.usage.prompt_tokens+'\n completion_tokens:'+json.usage.completion_tokens+'\n total_tokens:'+json.usage.total_tokens;
+                    document.getElementById('tokens').innerText = 'prompt_tokens:' + json.usage.prompt_tokens * 0.0000005
+                        + '\n completion_tokens:' + json.usage.completion_tokens * 0.0000015 
+                        + '\n total_tokens:' + json.usage.total_tokens 
+                        + '\n cost:' + ((json.usage.prompt_tokens * 0.0000005)+(json.usage.completion_tokens * 0.0000015));
                 })
 
 
