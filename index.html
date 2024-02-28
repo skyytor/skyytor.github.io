@@ -105,6 +105,8 @@
                     model: "gpt-3.5-turbo",
                     stream: true
                 }
+                
+                
             let result = await fetch('https://api.openai.com/v1/chat/completions', {
                 method: 'POST',
                 "Access-Control-Allow-Origin": "*",
@@ -115,7 +117,7 @@
                     'Content-Type': 'text/event-stream',
                     'Connection': 'keep-alive'
                 },
-                body: JSON.stringify()
+                body: JSON.stringify(data)
             }).then(response => response.text()) // 将response数据解析成json
                 .then(text => console.log(text))
 
