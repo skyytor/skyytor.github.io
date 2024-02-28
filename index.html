@@ -49,16 +49,26 @@
         margin-right: 10px;
         border-bottom: 1px solid #9e9e9e;
         outline: none;
+
+    }
+
+    #key {
+        padding: 10px;
+        border: none;
+        border-radius: 2px;
+        margin-right: 10px;
+        border-bottom: 1px solid #9e9e9e;
+        outline: none;
     }
 
     #btn {
         color: white;
         background-color: #26a69a;
-        padding: 10px 20px;
+        padding: 8px 16px;
         border: none;
         border-radius: 4px;
         font-size: 16px;
-
+        margin-right: 6px;
     }
 </style>
 </head>
@@ -68,9 +78,19 @@
         <h1>欢迎来到skyytor的博客</h1>
         <p>实际上就是个gpt网页</p>
         <div class="input_content">
-            <input type="text" id="question" placeholder="输入你的问题">
-            <button id="btn" type="submit">点击提交</button>
+            <input type="text" id="key" placeholder="你的密钥">
         </div>
+
+        <div class="input_content">
+            <button id="btn" type="submit">点击提交</button>
+            
+            <input type="text" id="question" placeholder="输入你的问题">
+
+        </div>
+        <div class="input_content">
+
+        </div>
+
         <div id="answer">
             <p>这里是回答</p>
         </div>
@@ -78,23 +98,24 @@
     <script>
 
         document.getElementById('btn').addEventListener('click', async function () {
+            let data ={
+                    messages: [
+                        { role: "user", content: document.getElementById('question').value }
+                    ],
+                    model: "gpt-3.5-turbo",
+                    stream: true
+                }
             let result = await fetch('https://api.openai.com/v1/chat/completions', {
                 method: 'POST',
                 "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Credentials": true,
                 mode: 'cors',
                 headers: {
-                    'Authorization': `Bearer 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`,
+                    'Authorization': 'Bearer ' + document.getElementById('key').value,
                     'Content-Type': 'text/event-stream',
                     'Connection': 'keep-alive'
                 },
-                body: JSON.stringify({
-                    messages: [
-                        { role: "user", content: document.getElementById('question').value }
-                    ],
-                    model: "gpt-3.5-turbo",
-                    stream: true
-                })
+                body: JSON.stringify()
             }).then(response => response.text()) // 将response数据解析成json
                 .then(text => console.log(text))
 
