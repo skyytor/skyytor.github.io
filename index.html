@@ -83,31 +83,29 @@
 
         <div class="input_content">
             <button id="btn" type="submit">点击提交</button>
-            
+
             <input type="text" id="question" placeholder="输入你的问题">
 
         </div>
         <div class="input_content">
 
         </div>
+        <p id="answer">这里是回答</p>
 
-        <div id="answer">
-            <p>这里是回答</p>
-        </div>
     </div>
     <script>
 
         document.getElementById('btn').addEventListener('click', async function () {
-            let data ={
-                    messages: [
-                        { role: "user", content: document.getElementById('question').value }
-                    ],
-                    model: "gpt-3.5-turbo",
-                    //stream: true
-                }
-                
-                console.log(data)
-                
+            let data = {
+                messages: [
+                    { role: "user", content: document.getElementById('question').value }
+                ],
+                model: "gpt-3.5-turbo",
+                //stream: true
+            }
+
+            console.log(data)
+
             let result = await fetch('https://api.openai.com/v1/chat/completions', {
                 method: 'POST',
                 "Access-Control-Allow-Origin": "*",
@@ -119,8 +117,10 @@
                     'Connection': 'keep-alive'
                 },
                 body: JSON.stringify(data)
-            }).then(response => response.text()) // 将response数据解析成json
-                .then(text => console.log(text))
+            }).then(response => response.json()) // 将response数据解析成json
+                .then(json => {
+                    document.getElementById('answer').innerText = json;
+                })
 
 
         });
