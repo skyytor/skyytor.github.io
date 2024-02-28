@@ -40,18 +40,16 @@
         <button id="btn">Click me</button>
     </div>
     <script>
-        document.getElementById('btn').addEventListener('click',async function () {
-            let result =await fetch('https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json', {
+        document.getElementById('btn').addEventListener('click', async function () {
+            let result = await fetch('https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json', {
                 method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
-                },
-                mode: 'no-cors'
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Credentials": true,
+                mode: 'cors'
             }).then(response => response.json()) // 将response数据解析成json
                 .then(json => console.log(json))
-                
-                
+
+
         });
     </script>
 </body>
