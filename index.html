@@ -4,52 +4,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body {
-            background-color: #f2f2f2;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+    <title>skyytor's blog space</title>
+    <link href="./favicon.png" type="image">
+</head>
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+<style>
+    body {
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
 
-        h1 {
-            color: #333;
-            text-align: center;
-        }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-        p {
-            color: #666;
-            line-height: 1.5;
-        }
-    </style>
+    h1 {
+        color: #333;
+        text-align: center;
+    }
+
+    p {
+        text-align: center;
+        color: #666;
+        line-height: 1.5;
+    }
+
+    .input_content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    #question {
+        padding: 10px;
+        border: none;
+        border-radius: 2px;
+        margin-right: 10px;
+        border-bottom: 1px solid #9e9e9e;
+        outline: none;
+    }
+
+    #btn {
+        color: white;
+        background-color: #26a69a;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+
+    }
+</style>
 </head>
 
 <body>
     <div class="container">
-        <h1>Welcome to My Website</h1>
-        <p>This is a sample HTML layout created using GitHub Copilot.</p>
-        <button id="btn">Click me</button>
+        <h1>欢迎来到skyytor的博客</h1>
+        <p>实际上就是个gpt网页</p>
+        <div class="input_content">
+            <input type="text" id="question" placeholder="输入你的问题">
+            <button id="btn" type="submit">点击提交</button>
+        </div>
+        <div id="answer">
+            <p>这里是回答</p>
+        </div>
     </div>
     <script>
+
         document.getElementById('btn').addEventListener('click', async function () {
             let result = await fetch('https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json', {
-                method: 'GET',
+                method: 'POST',
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Credentials": true,
+                mode: 'cors',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
+                    'Content-Type': 'text/event-stream',
+                    'Connection': 'keep-alive'
                 },
-                mode: 'no-cors'
-            }).then(response => response.json()) // 将response数据解析成json
-                .then(json => console.log(json))
+                body: JSON.stringify({
+                    message: [
+                        { role: "user", content: document.getElementById('question').value }
+                    ],
+                    model: "gpt-3.5-turbo",
+                    stream: true
+                })
+            }).then(response => response.text()) // 将response数据解析成json
+                .then(text => console.log(text))
 
 
         });
