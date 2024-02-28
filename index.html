@@ -123,8 +123,8 @@
                     document.getElementById('answer').innerText = json.choices[0].message.content;
                     document.getElementById('tokens').innerText = 'prompt_tokens:' + json.usage.prompt_tokens
                         + '\n completion_tokens:' + json.usage.completion_tokens
-                        + '\n total_tokens:' + json.usage.total_tokens 
-                        + '\n 总费用:' + ((json.usage.prompt_tokens * 0.0000005)+(json.usage.completion_tokens * 0.0000015))*7.20;
+                        + '\n total_tokens:' + json.usage.total_tokens
+                        + '\n 总费用:' + ((json.usage.prompt_tokens * 0.0000005) + (json.usage.completion_tokens * 0.0000015)) * 7.20+'元';
                 })
 
 
