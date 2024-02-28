@@ -115,7 +115,7 @@
                 mode: 'cors',
                 headers: {
                     'Authorization': 'Bearer ' + document.getElementById('key').value,
-                    'Content-Type': 'text/event-stream',
+                    'Content-Type': 'application/json',
                     'Connection': 'keep-alive'
                 },
                 body: JSON.stringify(data)
