@@ -40,24 +40,16 @@
         <button id="btn">Click me</button>
     </div>
     <script>
-        document.getElementById('btn').addEventListener('click', function () {
-            fetch('https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json', {
+        document.getElementById('btn').addEventListener('click',async function () {
+            let result =await fetch('https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*'
                 },
                 mode: 'no-cors'
-            }).then(response => response.json())
-                .then(data => {
-                    console.log(data);
-
-                    // Handle the response data here
-                })
-                .catch(error => {
-                    // Handle any errors that occur during the request
-                });
-                console.log('hello')
+            })
+                console.log(result)
                 
         });
     </script>
